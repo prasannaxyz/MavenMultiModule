@@ -12,6 +12,9 @@
         <dependent-module archiveName="SrinergiPortalCommon-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SrinergiPortalCommon/SrinergiPortalCommon">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="ContentManagemetModule-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ContentManagemetModule/ContentManagemetModule">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="SrinergiPortalWeb"/>
         <property name="java-output-path" value="/SrinergiPortalWeb/target/classes"/>
     </wb-module>
