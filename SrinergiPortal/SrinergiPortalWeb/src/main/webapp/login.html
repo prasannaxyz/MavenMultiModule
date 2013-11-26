@@ -1,0 +1,940 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>User Login</title>
+<link rel="stylesheet" href="css/jquery-ui-1.10.2.custom.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
+<link rel="stylesheet" href="css/backgrid.css" />
+<link rel="stylesheet" href="css/srigen-cerulean.css" id="bs-css">
+<link href="css/srigen-app.css" rel="stylesheet">
+</head>
+<body>
+	<div id="content"  class="container" style="width: 100%; height: 100%;"></div>
+	<div id="section1"></div>
+<script type="text/template" id="logintemplate">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td background="images/MenuTop.jpg" height="75">
+				<img width="205" border="0" src="images/logo2.png">
+			</td>
+		</tr>
+	</tbody>
+  </table>
+	<br>
+	<div class="container">
+	<div class="row">
+		<div class="span4 offset4 well">
+			<legend>Sign In</legend>
+          	<div id="errormsg" align="center" style="color:red;">
+            </div>
+				User Name<input type="text" id="username" class="span4" name="username" placeholder="User name"><br>
+				Password<input type="password" id="password" class="span4" name="password" placeholder="Password">
+			<br>
+    	 	<div align='center'>
+				<input type="button" name="signin" id="signin" class="btn btn-success" value="Sign in"/><br><br>
+			</div>
+			<a href="#forgotpass" id="forgotpass" style="text-decoration:none;float:left;">Forgot Password?</a>
+		<span style="float:right;">
+			<a href="#employeereg" id="employeeregister" style="text-decoration:none;">Employee Registration?</a><br>
+			<a href="#memberreg" id="memberregister" style="text-decoration:none;" >Member Registration?</a><br>
+			<a href="#brokerreg" id="brokerregister" style="text-decoration:none;" >Broker Registration?</a><br>
+		</span>
+	 	<input type="hidden" id="authtoken" name ="authtoken"/>
+	  </div>
+		</div>
+	  </div>
+</script>
+<div style="display: none;" id="passhin">
+		<p style="text-align:center;">password should contain atleast</p>
+	<ul>
+		<li>one lower case (a-z)</li>
+		<li>one upper case (A-Z)</li>
+		<li>one digit (0-9)</li>
+		<li>one special character ($,#,@,!,%)</li>
+		<li>8 mentioned characters.</li>
+	</ul>
+</div>
+<script type="text/template" id="employeetemp">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td background="images/MenuTop.jpg" height="75">
+				<img width="205" border="0" src="images/logo2.png">
+				<a href="login.html"><img src="images/home3.png" style="padding-right:15px;padding-top:10px;width:30px;height:30px;float:right;"/></a>
+			</td>
+		</tr>
+	</tbody>
+  </table>
+	<div class="box-header well">
+		<h2 align="center">REGISTRATION</h2>
+    </div>
+	<br>
+	<p id="esuccessmsg" style="display: none;text-align:center;color:green;">
+					Your registration has been sucessfully submitted.
+			You will be notified through email after your information is reviewed and approved.
+  	</p>
+	<div  id="employ1"> 
+	<div class="box span12" align="center">	
+	  <div class="box-header well">
+            <h3>EMPLOYER SIGN UP</h3>
+      </div>
+	  <div class="box-content">
+		<p id="errormsg" align="center" style="color:red;"></p>
+		<input type="hidden" id="roletype" name="roletype"/> 
+	<div class="span6">
+	<div class="area">
+    <div class="form-horizontal">
+       <div class="control-group">
+            <label class="control-label" for="username">User Name<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="uname" name="uname" placeholder="User name" maxlength="20">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password<font color="red">*</font></label>
+            <div class="controls">
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="pass" name="pass" placeholder="Password" maxlength="70">&nbsp;<img src="images/question.gif" id="passhint">
+			  <meter value="0" style="width:30%;display:none;text-align:left;" id="PassValue" max="100"></meter><p id="scorepercent" style="display:none;">0%</p>
+		    </div>
+	    </div>
+	    <div class="control-group">
+            <label class="control-label" for="confirmpassword">Confirm Password<font color="red">*</font></label>
+            <div class="controls">
+                <input type="password" id="cfpass" name="cfpass" placeholder="Re-type password" maxlength="70">
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="groupno">Group Number<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="groupno" name="groupno" placeholder="Group no" maxlength="5">
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="employeetaxid">Employee Tax Id</label>
+            <div class="controls">
+                <input type="text" id="etaxid" name="taxid" placeholder="Employee tax-id" maxlength="45">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion1">Security Question1<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest1">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="securityanswer1">Security Answer1<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id='sans1' name="sans1" placeholder="Security answer1" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion2">Security Question2<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest2">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityanswer2">Security Answer2<font color="red">*</font></label>
+             <div class="controls">
+                <input type="text" id='sans2' name="sans2" placeholder="Security answer2" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+                <input type="button" class="btn btn-mini btn-success" value="Next" id="next"/>
+        </div>	
+     </div>	
+	</div>                           
+	</div>
+	</div>
+ </div>
+</div>
+<div id="employ2" style="display:none;">
+	<div class="box span12">
+	  <div class="box-header well">
+            <h3>EMPLOYER PERSONAL DETAILS</h3>
+			<input type="button" id="back" class="btn btn-mini btn-primary" value="BACK" style="float:right;"/>
+      </div>
+		<div class="box-content" align="center">
+			<font id="errormsgs" style="color: red;" size="3"></font>
+			<br><br>
+		<div class="container">
+        	<div class="row-fluid">
+            	<div class="span12">
+                	<div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+							   	   <div class="control-group">
+                                    <label class="control-label" for="title">Title</label>
+                                    <div class="controls">
+                                        	<select id="etitle">
+												<option>select</option>
+												<option>Mr</option>
+												<option>Mrs</option>
+												<option>Ms</option>
+											</select>
+                                    </div>
+                                </div>	
+                               <div class="control-group">
+                                    <label class="control-label" for="firstname">First Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="efirstname" placeholder="first name" maxlength="25">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="middlename">Middle Name</label>
+                                    <div class="controls">
+                                        <input type="text" id="emiddlename" placeholder="middle name" maxlength="15">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="lastname">Last Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="elastname" placeholder="last name" maxlength="20">
+                                    </div>
+                                </div>
+                              	<div class="control-group">
+                                    <label class="control-label" for="email">Email<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="eemail" placeholder="email" maxlength="30"> 
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address1">Address1<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="eaddress1" placeholder="address1" maxlength="100">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address2">Address 2</label>
+                                    <div class="controls">
+                                        <input type="text" id="eaddress2" placeholder="address2" maxlength="100">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="city">City<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="ecity" placeholder="city" maxlength="30">
+                                    </div>
+                                </div>	
+							
+                             </div>	
+						</div>                           
+                    </div>
+                    <div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+ 								<div class="control-group">
+                                    <label class="control-label" for="state">State<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <select id="egenstate">
+											<option value="Select">select</option>
+										</select>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="county">County</label>
+                                    <div class="controls">
+                                       <input type="text" id="ecounty" readonly="readonly" maxlength="11">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zipcode">Zip Code<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="ezipcode" placeholder="zip code" maxlength="10">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phone">Phone<font color="red">*</font></label>
+                                    <div class="controls">
+                                       <input type="text" id="ephone" maxlength="10" placeholder="phone">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phoneext">Phone EXT</label>
+                                    <div class="controls">
+                                       <input type="text" id="ephoneext" placeholder="Phone EXT" maxlength="6">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="fax">Fax</label>
+                                    <div class="controls">
+                                       <input type="text" id="efax" maxlength="10" placeholder="Fax">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="groupname">Group Name</label>
+                                    <div class="controls">
+                                        <input type="text" id="egroupname" placeholder="group name" maxlength="20">
+                                    </div>
+                                </div>
+								 <div class="control-group">
+                                    <label class="control-label" for="websiteurl">Website URL</label>
+                                    <div class="controls">
+                                        <input type="text" id="eurl" placeholder="website url" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>	
+						</div>                            
+                    </div>
+                </div>
+              </div>
+        </div>  
+        </div></div>
+	 <br><br>
+  <div class="box span12">	
+   <div class="box-header well">
+            <h3>TERMS</h3>
+      </div>
+		<div class="box-content">
+ 		<div>
+			<input type="checkbox" id="etermflag" name="termflag" value="1">&nbsp;I agree all your <a href="#" id="terms" name="terms">terms of services</a><br>
+		</div>
+  <br><br>
+  <div class="control-group">
+	<input id="enum1" class="sum" type="text" name="num1" style="width:20px;" maxlength="2"  readonly="readonly" />+
+	<input id="enum2" class="sum" type="text" name="num2" style="width:20px;" maxlength="2"  readonly="readonly" />=
+	<input id="enum3" type="text" name="captcha" maxlength="3" style="width:30px;" />
+	<span id="spambot">(Are you human, or spambot?)</span>
+  		</div>
+	<div class="control-group">	
+		<p><input type="button" id="register" value="Register" class="btn btn-mini btn-success"/></p>
+	 </div>	
+ 	</div>
+ 	</div>
+ </div>
+</script> 
+<script type="text/template" id="membertemp">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td background="images/MenuTop.jpg" height="75">
+				<img width="205" border="0" src="images/logo2.png">
+				<a href="login.html"><img src="images/home3.png" style="padding-top:10px;padding-right:15px;width:30px;height:30px;float:right;"/></a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div class="box-header well">
+		<h2 align="center">REGISTRATION</h2>
+  </div>
+   <br>
+   <p id="msuccessmsg" style="display: none;text-align:center;color:green;">
+					Your registration has been sucessfully submitted.
+			You will be notified through email after your information is reviewed and approved.
+  </p>
+<div id="member1">
+<div class="box span12" align="center">	
+	  <div class="box-header well">
+            <h3>MEMBER SIGN UP</h3>
+	  </div>
+	  <div class="box-content">
+		<p id="errormsg" align="center" style="color:red;"></p>
+		<input type="hidden" id="roletype" name="roletype"/>
+	<div class="span6">
+	<div class="area">
+    <div class="form-horizontal">
+       <div class="control-group">
+            <label class="control-label" for="username">User Name<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="uname" name="uname" placeholder="User name" maxlength="20">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password<font color="red">*</font></label>
+            <div class="controls">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="pass" name="pass" placeholder="Password" maxlength="70">&nbsp;<img src="images/question.gif" id="passhint">
+				<meter value="0" style="width:30%;display:none;text-align:left;" id="PassValue" max="100"></meter><p id="scorepercent" style="display:none;">0%</p>
+            </div>
+			
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="confirmpassword">Confirm Password<font color="red">*</font></label>
+            <div class="controls">
+                <input type="password" id="cfpass" name="cfpass" placeholder="Re-type password" maxlength="70">
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="groupno">Group Number<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="mgroupno" name="mgroupno" placeholder="Group no" maxlength="5">
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="ssn">SSN<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="ssn" name="ssn" placeholder="SSN" maxlength="9">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion1">Security Question1<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest1">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="securityanswer1">Security Answer1<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id='sans1' name="sans1" placeholder="Security answer1" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion2">Security Question2<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest2">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityanswer2">Security Answer2<font color="red">*</font></label>
+             <div class="controls">
+                <input type="text" id='sans2' name="sans2" placeholder="Security answer2" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+                <input type="button" class="btn btn-mini btn-success" value="Next" id="next"/>
+        </div>	
+     	</div>	
+		</div>                           
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+	<div id="member2" style="display:none;">
+	<div class="box span12">
+	  <div class="box-header well">
+            <h3>MEMBER PERSONAL DETAILS</h3>
+			<input type="button" id="back" class="btn btn-mini btn-primary" value="BACK" style="float:right;"/>
+      </div>
+		<div class="box-content" align="center">
+			<font id="errormsgs" style="color: red;" size="3"></font>
+			<br><br>
+		<div class="container">
+        	<div class="row-fluid">
+            	<div class="span12">
+                	<div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+							   	   <div class="control-group">
+                                    <label class="control-label" for="title">Title</label>
+                                    <div class="controls">
+                                        	<select id="title">
+												<option>select</option>
+												<option>Mr</option>
+												<option>Mrs</option>
+												<option>Ms</option>
+											</select>
+                                    </div>
+                                </div>	
+                               <div class="control-group">
+                                    <label class="control-label" for="firstname">First Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="firstname" placeholder="first name" maxlength="25">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="middlename">Middle Name</label>
+                                    <div class="controls">
+                                        <input type="text" id="middlename" placeholder="middle name" maxlength="15">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="lastname">Last Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="lastname" placeholder="last name" maxlength="20">
+                                    </div>
+                                </div>
+                              	<div class="control-group">
+                                    <label class="control-label" for="email">Email<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="email" placeholder="email" maxlength="30"> 
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address1">Address1<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="address1" placeholder="address1" maxlength="100">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address2">Address 2</label>
+                                    <div class="controls">
+                                        <input type="text" id="address2" placeholder="address2" maxlength="100">
+                                    </div>
+                                </div>
+                             </div>	
+						</div>                           
+                    </div>
+                    <div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+								<div class="control-group">
+                                    <label class="control-label" for="city">City<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="city" placeholder="city" maxlength="30">
+                                    </div>
+                                </div>
+ 								<div class="control-group">
+                                    <label class="control-label" for="state">State<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <select id="mgenstate">
+											<option value="Select">select</option>
+										</select>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="county">County</label>
+                                    <div class="controls">
+                                       <input type="text" id="county" readonly="readonly" maxlength="11">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="zipcode">Zip Code<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="zipcode" placeholder="zip code" maxlength="10">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phone">Phone</label>
+                                    <div class="controls">
+                                       <input type="text" id="phone" maxlength="10" placeholder="phone">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phoneext">Phone EXT</label>
+                                    <div class="controls">
+                                       <input type="text" id="phoneext" placeholder="Phone EXT" maxlength="6">
+                                    </div>
+                                </div>
+							    <div class="control-group">
+                                    <label class="control-label" for="websiteurl">Website URL</label>
+                                    <div class="controls">
+                                        <input type="text" id="url" placeholder="website url" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>	
+						</div>                            
+                    </div>
+                </div>
+                </div>
+        </div>  
+        </div></div>
+	 <br><br>
+  <div class="box span12">	
+   <div class="box-header well">
+            <h3>TERMS</h3>
+      </div>
+		<div class="box-content">
+ 		<div>
+			<input type="checkbox" id="termflag" name="termflag" value="1">&nbsp;I agree all your <a href="#" id="terms" name="terms">terms of services</a><br>
+		</div>
+  <br><br>
+  <div class="control-group">
+	<input id="num1" class="sum" type="text" name="num1" style="width:20px;" maxlength="2"  readonly="readonly" />+
+	<input id="num2" class="sum" type="text" name="num2" style="width:20px;" maxlength="2"  readonly="readonly" />=
+	<input id="num3" type="text" name="captcha" maxlength="3" style="width:30px;" />
+	<span id="spambot">(Are you human, or spambot?)</span>
+  		</div>
+	<div class="control-group">	
+		<p><input type="button" id="register" value="Register" class="btn btn-mini btn-success"/></p>
+	 </div>	
+ 	</div>
+ 	</div>
+</div>
+ </script>
+<script type="text/template" id="brokertemp">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td background="images/MenuTop.jpg" height="75">
+				<img width="205" border="0" src="images/logo2.png">
+				<a href="login.html"><img src="images/home3.png" style="padding-top:10px;padding-right:15px;width:30px;height:30px;float:right;"/></a>
+			</td>
+		</tr>
+	</tbody>
+  </table>
+  <div class="box-header well">
+		<h2 align="center">REGISTRATION</h2>
+  </div>
+	<br>
+	<p id="bsuccessmsg" style="display: none;text-align:center;color:green;">
+					Your registration has been sucessfully submitted.
+			You will be notified through email after your information is reviewed and approved.
+    </p>
+  	<div id="broker1"> 
+	<div class="box span12" align="center">	
+	  <div class="box-header well">
+            <h3>BROKER REGISTRATION</h3>
+      </div>
+		<p id="errormsg" align="center" style="color:red;"></p>
+		<input type="hidden" id="roletype" name="roletype"/>
+	 <div class="box-content">
+	<div class="span6">
+	<div class="area">
+    <div class="form-horizontal">
+       <div class="control-group">
+            <label class="control-label" for="username">User Name<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id="uname" name="uname" placeholder="User name" maxlength="20">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password<font color="red">*</font></label>
+            <div class="controls">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="pass" name="pass" placeholder="Password" maxlength="70">&nbsp;<img src="images/question.gif" id="passhint"><br>
+				<meter value="0" style="width:30%;display:none;text-align:left;" id="PassValue" max="100"></meter><p id="scorepercent" style="display:none;text-align:center;">0%</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="confirmpassword">Confirm Password<font color="red">*</font></label>
+            <div class="controls">
+                <input type="password" id="cfpass" name="cfpass" placeholder="Re-type password" maxlength="70">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion1">Security Question1<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest1">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		 <div class="control-group">
+            <label class="control-label" for="securityanswer1">Security Answer1<font color="red">*</font></label>
+            <div class="controls">
+                <input type="text" id='sans1' name="sans1" placeholder="Security answer1" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityquestion2">Security Question2<font color="red">*</font></label>
+            <div class="controls">
+               <select id="squest2">
+				 	 <option value="Select">Select a question</option>
+				</select>
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="securityanswer2">Security Answer2<font color="red">*</font></label>
+             <div class="controls">
+                <input type="text" id='sans2' name="sans2" placeholder="Security answer2" maxlength="255">
+            </div>
+        </div>
+		<div class="control-group">
+                <input type="button" class="btn btn-mini btn-success" value="Next" id="next"/>
+        </div>	
+     </div>	
+	</div>                           
+	</div>
+	 </div>
+	</div>
+	</div>
+ <div id="broker2" style="display:none;"> 
+<div class="box span12">	
+	  <div class="box-header well">
+            <h3>BROKER PERSONAL DETAILS</h3>
+			<input type="button" id="back" class="btn btn-mini btn-primary" value="BACK" style="float:right;"/>
+      </div>
+	  <div class="box-content" align="center">	
+	  		<font id="errormsgs" color="red" align="center" size="3"></font><br>
+	<br>
+	<div class="container">
+        	<div class="row-fluid">
+            	<div class="span12">
+                	<div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+							   <div class="control-group">
+                                    <label class="control-label" for="title">Title</label>
+                                    <div class="controls">
+                                        	<select id="title">
+												<option>select</option>
+												<option>Mr</option>
+												<option>Mrs</option>
+												<option>Ms</option>
+											</select>
+                                    </div>
+                                </div>	
+                               <div class="control-group">
+                                    <label class="control-label" for="firstname">First Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="firstname" placeholder="first name" maxlength="30">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="middlename">Middle Name</label>
+                                    <div class="controls">
+                                        <input type="text" id="middlename" placeholder="middle name" maxlength="20">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="lastname">Last Name<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="lastname" placeholder="last name" maxlength="30">
+                                    </div>
+                                </div>
+							    <div class="control-group">
+                                    <label class="control-label" for="email">Email<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="email" placeholder="email" maxlength="30"> 
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="taxid">Tax Id</label>
+                                    <div class="controls">
+                                        <input type="text" id="taxid" placeholder="taxid" maxlength="10">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address1">Address1<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="address1" placeholder="address1" maxlength="100">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="address2">Address 2</label>
+                                    <div class="controls">
+                                        <input type="text" id="address2" placeholder="address2" maxlength="100">
+                                    </div>
+                                </div>
+                             </div>	
+						</div>                           
+                    </div>
+                    <div class="span6">
+                    	<div class="area">
+                            <div class="form-horizontal">
+								<div class="control-group">
+                                    <label class="control-label" for="city">City<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="city" placeholder="city" maxlength="25">
+                                    </div>
+                                </div>
+ 								<div class="control-group">
+                                    <label class="control-label" for="state">State<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <select id="genstate">
+											<option value="Select">select</option>
+										</select>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="county">County</label>
+                                    <div class="controls">
+                                       <input type="text" id="county" readonly="readonly" maxlength="20">
+                                	</div>
+								</div>
+								<div class="control-group">
+                                    <label class="control-label" for="zipcode">Zip Code<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="zipcode" placeholder="zip code" maxlength="10">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phone">Phone<font color="red">*</font></label>
+                                    <div class="controls">
+                                        <input type="text" id="phone" placeholder="phone" maxlength="12">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="phoneext">Phone EXT</label>
+                                    <div class="controls">
+                                        <input type="text" id="phoneext" placeholder="phone EXT" maxlength="6">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="fax">Fax</label>
+                                    <div class="controls">
+                                        <input type="text" id="fax" placeholder="fax" maxlength="10">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="websiteurl">Website URL</label>
+                                    <div class="controls">
+                                        <input type="text" id="url" placeholder="website url" maxlength="30">
+                                    </div>
+                                </div>	
+				             </div>	
+						</div>                            
+                    </div>
+                </div>
+                </div>
+	        </div> 
+			</div>
+		</div>
+	<br>
+ <div class="box span12">	
+	  <div class="box-header well">
+            <h3>BROKER LICENSE DETAILS</h3>
+      </div>
+	<br><br>
+	<div class="box-content">
+		<div>
+				Independent Broker?<font color="red">*</font>&nbsp;:
+				&nbsp;<input type="radio" name="ibroker" value="1"/>Yes &nbsp;
+				<input type="radio" name="ibroker" value="0" checked="checked"/>No
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Agency Name<font color="red" id="mandateagency">*</font>
+				<input type="text" name="agencyname" id="agencyname"/>
+			</div>
+	<br>
+		<div id="grids" style="width:850px; background-color:#FFFFFF;" align="center"></div>
+	<br><br>
+	<div id="statusbutton">
+		<input type="button" id="addnew" value="Add New License" class="btn btn-mini btn-success"/>
+	</div>
+</div>
+</div>
+<br>
+<div class="box span12">	
+<div class="box-header well">
+            <h3>TERMS</h3>
+  </div>
+  <div class="box-content">	
+ <input type="checkbox" id="termflag" name="termflag" value="1">&nbsp;I agree all your <a href="#" id="terms" name="terms"> terms of services</a><br>
+ <br><br>
+	<input id="num1" class="sum" type="text" name="num1" style="width:20px;" maxlength="2" readonly="readonly" />+
+	<input id="num2" class="sum" type="text" name="num2" style="width:20px;" maxlength="2" readonly="readonly" />=
+	<input id="num3" type="text" name="captcha" maxlength="3" style="width:30px;" />
+	<span id="spambot">(Are you human, or spambot?)</span>
+	<p><input type="button" id="register" value="Register" class="btn btn-mini btn-success"/></p>
+		</div>	
+	</div>
+</div>
+</script>
+<script type="text/template" id="forgotpass">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td background="images/MenuTop.jpg" height="75">
+				<img width="205" border="0" src="images/logo2.png">
+				<a href="login.html"><img src="images/home3.png" style="padding-top:10px;padding-right:15px;width:30px;height:30px;float:right;"/></a>
+			</td>
+		</tr>
+	</tbody>
+  </table>
+	<input type="hidden" id="rtoken" name="rtoken"/>
+	<input type="hidden" id="s1token" name="s1token"/>
+	<input type="hidden" id="s2token" name="s2token"/>
+ <div align="center" class="row">
+		<br>
+		<div id="checkuser">
+			<h2>We need some information to verify your ID </h2>
+			<span id="errname" style="color: red;"></span>
+			<br><br>
+			<table>
+				<tr>
+					<td><label style="width:200px;">Registered User Name</label></td>
+					<td><input type="text" id="rusername" name="rusername" maxlength="20" placeholder="User name"></td>
+				</tr>
+				<tr>
+					<td><input type="button" id="check" value="Get Security Questions" class="btn btn-mini btn-success"/></td>
+				</tr>
+			</table>
+		</div>
+		<div align="center" style="display:none;" id="squestions">
+			<div class="box span12">	
+	  			<div class="box-header well">
+            		<h3>SECURITY QUESTIONS</h3>
+					<input type="button" id="getusername" class="btn btn-mini btn-primary" value="BACK" style="float:right;"/>
+		      </div>
+		  	<span id="errmsg" style="color: red;"></span>
+			<br>
+			<br>
+			<div class="form-horizontal">
+      				<p style="text-align:left;">Security Question1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="text-align:left;" class="question1" name="question1"></font></p>
+    	    	    <p style="text-align:left;">Security Answer1<font color="red">*</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="ans1" name="ans1" maxlength="255" placeholder="security answer1" class="input-xlarge"></p>
+    	    		<p style="text-align:left;">Security Question2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="text-align:left;" class="question2" name="question2"></font></p>
+					<p style="text-align:left;">Security Answer2<font color="red">*</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="ans2" name="ans2" maxlength="255" placeholder="security answer2"  class="input-xlarge"></p><br>
+      			  	<p style="text-align:left;"><input type="button" id="checkans" name="checkans" value='Reset Password'  class="btn btn-mini btn-success"></p>
+			</div>
+	</div></div>
+		<div id="changepass" style="display: none;">
+			<div class="box span12">	
+	  			<div class="box-header well">
+            		<h3>RESET PASSWORD</h3>
+					<input type="button" id="bquestion" value="BACK" class="btn btn-mini btn-primary" style="float:right;"/>  
+		      </div>
+	  		<div class="box-content">
+			<p id="errpwd" style="color:red;"></p>
+			<div class="span6" align='center'>
+			<div class="area">
+    		<div class="form-horizontal">
+       		<div class="control-group">
+            	<label class="control-label" for="password">New Password<font color="red">*</font></label>
+            	<div class="controls">
+                	<input type="password" id="npass" name="npass" placeholder="New password" maxlength="70"/>
+            	</div>
+        	</div>
+			<div class="control-group">
+            	<label class="control-label" for="confirmpass">Confirm Password<font color="red">*</font></label>
+            	<div class="controls">
+                	<input type="password" id="cpass" name="cpass" placeholder="Re-type Password" maxlength="70"/>
+            	</div>
+        	</div><br>
+        	<p style="text-align:left"><input type="button" value="Save" id="passchange" class="btn btn-mini btn-success"/></p>
+        	</div>
+			</div>
+			</div>
+			</div>
+		</div>
+		</div></div>
+	<br>
+	<p id="successpass" style="display: none; color:green; size:20px; text-align:center;">
+				Password Saved Successfully <a href="login.html"> Click Here </a> to Login			
+	</p>	
+ </div>
+ </script>
+	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/backgrid.js"></script>
+	<script type="text/javascript" src="js/backbone-relational.js"></script>
+	<script type="text/javascript" src="js/backbone.marionette.js"></script>
+	<script type="text/javascript" src="js/backbone-validation.js"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.complexify.js"></script>
+	<script type="text/javascript" src="models/loginmodel.js"></script>
+	<script type="text/javascript" src="views/loginview.js"></script>
+	<script type="text/javascript" src="collections/brokercollection.js"></script>
+	<script type="text/javascript" src="views/employeeregister.js"></script>
+	<script type="text/javascript" src="views/memberregister.js"></script>
+	<script type="text/javascript" src="views/brokerregister.js"></script>
+	<script type="text/javascript" src="views/forgotpassword.js"></script>
+	<script type="text/javascript" src="routers/loginrouter.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+	var tokn = $.cookie("authtoken");
+		if(tokn != null){
+			window.location = "index.html";
+		}
+	$.ajaxSetup({
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("token", $('#authtoken').val());
+				xhr.setRequestHeader("stoken",$('#rtoken').val());
+				/* xhr.setRequestHeader("securetoken1",$('#s1token').val()); */
+			}
+		});
+	});
+	</script>
+</body>
+</html>

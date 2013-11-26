@@ -1,0 +1,63 @@
+* {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+#header {
+	/* padding-top: 5px; */
+	width: 100px;
+}
+
+#sidebar {
+	position: absolute;
+	left: 10px;
+	top: 70px;
+	bottom: 70px;
+	width: 250px;
+	border:solid 1px #CCCCCC;
+	overflow-y: scroll;
+}
+
+#messagecontent 
+{
+    position: absolute;
+   	top: 70px;
+   	bottom: 70px;
+   	left:300px;
+   	right:20px;
+}
+
+#footer
+{
+	width: 100px;
+}
+a#testbutton, a#testbutton:visited 
+{  
+display:block;  
+background: url(http://darrenhoyt.com/imagedump/simple_button.png) repeat-x;  
+width: 200px;  
+padding:10px 0;  
+text-align:center;  
+border:1px solid #608925;  
+text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.8);  
+font-weight:bold;  
+text-transform:uppercase;  
+border-radius: 5px;  
+-moz-border-radius: 5px;  
+-webkit-border-radius: 5px;  
+color:#FFF;  
+text-decoration: none;  
+opacity:.85;  
+}  
+  
+a#testbutton:hover 
+{  
+border-color:#49671d;  
+}  
+  
+a#testbutton:active
+ {  
+background-position:  0 -200px;  
+padding:11px 0 9px;  
+text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);  
+}  

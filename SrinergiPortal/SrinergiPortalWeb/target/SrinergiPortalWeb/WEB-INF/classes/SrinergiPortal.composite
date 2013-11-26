@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
+           targetNamespace="http://services.rest.srinergi.com"
+           name="MessageService-contribution">
+           
+  <component name="SpringComponent">
+        <implementation.spring location="spring.cfg.xml"/>
+  </component>
+       
+  <!-- Login Component -->
+      <component name="LoginComponent">
+        <implementation.spring location="SrinergiPortalSpringConf.xml"/>
+          <service name="LoginService">
+             <interface.java interface="com.srinergi.LoginModule.rest.services.JaxRsLogin"/>
+			<tuscany:binding.rest uri="/rest/login">
+				<tuscany:wireFormat.json/>
+			    <tuscany:operationSelector.jaxrs/>
+		    </tuscany:binding.rest>      
+	      </service>
+      </component>
+           
+  </composite>

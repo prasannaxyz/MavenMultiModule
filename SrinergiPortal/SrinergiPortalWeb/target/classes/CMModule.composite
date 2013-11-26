@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
+           targetNamespace="http://services.rest.srinergi.com"
+           name="ContentManagement-contribution">
+           
+  <component name="ContentManagementComponent">
+        <implementation.spring location="Spring.cfg.xml"/>
+  </component>
+
+  <component name="MenuComponent">
+     <implementation.spring location="CMModuleSpringComponentConf.xml"/>
+          <service name="MenuService">
+           <interface.java interface="com.srinergi.CMM.services.MenuService"/>
+			 <tuscany:binding.rest uri="/rest/menus" >
+				<tuscany:wireFormat.json/>
+		        <tuscany:operationSelector.jaxrs/>
+			</tuscany:binding.rest >          	      
+	     </service>
+   </component>
+
+ 
+</composite>

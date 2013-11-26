@@ -1,0 +1,129 @@
+/* tables */
+table.tablesorter {
+	/*font-family:arial;
+	/*background-color: #CDCDCD;*/
+	/*margin:10px 0pt 15px;*/
+	/*font-size: 8pt;*/
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	/*background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;*/
+}
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#f1f5fa;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #dddddd;
+}
+
+/* table sort */
+div.module div.module-table-body { 
+	background: url(module-body-right-bg.gif) no-repeat scroll bottom right; 
+	padding: 0; 
+	float: left; 
+	width: 100%; 
+	}
+
+div.module h2 { 
+    /* Sliding right image */
+    background: url(module-header-left-bg.gif) no-repeat scroll top left; 
+	display: block;
+	float: left;
+	height: 32px; /* CHANGE THIS VALUE ACCORDING TO IMAGE HEIGHT */
+	margin-right: 0px;
+	padding-right: 0px; /* CHENGE THIS VALUE ACCORDING TO RIGHT IMAGE WIDTH */
+	/* FONT PROPERTIES */
+	text-decoration: none;
+	color: #444444;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	width: 100%;
+	margin-bottom: 0;
+	letter-spacing: normal
+	}
+
+div.module h2 span { 
+	/* Background left image */ 
+	background: url(module-header-right-bg.gif) no-repeat top right; 
+	display: block;
+	line-height: 20px; /* CHANGE THIS VALUE ACCORDING TO BUTTONG HEIGHT */
+	padding: 7px 0 5px 18px;
+
+	}
+
+div.module table {
+	width: 100%; 
+	margin: 0 0 10px 0;
+	border-left: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	}
+
+div.module table.tr {
+	border-collapse: separate;
+	border-right: 1px solid #aaaaaa;
+	border-left: 1px solid #aaaaaa;
+	}
+
+div.module table th {
+	background-color: #eeeeee;
+	color: #444444;
+	padding: 5px;
+	text-align: left;
+	border-right: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	}
+	
+div.module table td {
+	background-color: #ffffff;
+	padding: 5px;;
+	border-right: 1px solid #d9d9d9;
+	}
+
+div.module table tr.odd td { /* You can use this style if you want to do zebra-colored tables with other technique than Table Sorter script used here */
+	background-color: #f1f5fa;
+	}
+	
+.table-apply {
+	width: 40%; float: right; text-align: right; margin-right: 10px;
+	}
+
+
+
+
+/* -------------------- Pager -------------------- */
+.pager {
+	display: block; padding: 0px 10px 10px 10px;  width: 40%; float: left; 
+	}
+
+.pager .first,
+.pager .prev,
+.pager .next,
+.pager .last {
+	margin-bottom: -2px;
+	}
+
+
+

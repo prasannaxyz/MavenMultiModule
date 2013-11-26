@@ -1,0 +1,16 @@
+td{
+	width:19ex;
+	padding: 2 em;
+	height:5ex;
+	font: bold;
+	font-family: sans-serif;
+}
+tr {
+	padding: 8px;
+	width: 10%;
+	height: 10%;
+}
+ body
+{
+	background: back.jpg;
+}
